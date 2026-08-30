@@ -1,0 +1,18 @@
+# MIT-BIH record 208 annotator signal-quality markers
+# '~' = signal-quality change, '|' = isolated QRS-like artifact
+# sample index is relative to the start of the excerpt
+sample,symbol
+7156,|
+10048,~
+10842,~
+15105,~
+16142,~
+19851,|
+30633,~
+30986,|
+31306,|
+34762,~
+35749,~
+37954,~
+75065,~
+77232,~

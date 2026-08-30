@@ -1,0 +1,18 @@
+QRS detection on MIT-BIH record 208, 5-minute excerpt (real data)
+record            : 300 s @ 360 Hz, samples 422820-530820 of record 208
+reference beats   : 509  (151 abnormal - PVC, fusion or unclassifiable)
+matching tolerance: 150 ms (ANSI/AAMI EC57)
+
+detector                   det    TP   FP   FN     Se %    PPV %
+static threshold           522   499   23   10    98.04    95.59
+adaptive Pan-Tompkins      499   496    3   13    97.45    99.40
+
+heart rate (adaptive) : mean 104.0 bpm, 83-122 bpm (5-95th pct)
+
+Published Pan-Tompkins performance is Se 99.3 %, PPV 99.5 % averaged over all 48
+MIT-BIH records. Record 208 is materially harder than that average.
+
+Where the errors fall (within 3 s of an annotator '~' or '|' marker)
+  static threshold         23 of  33 errors (70 %) sit in a stretch the annotators flagged
+  adaptive Pan-Tompkins    14 of  16 errors (88 %) sit in a stretch the annotators flagged
+  the 2 adaptive errors outside a flagged stretch are at t = 113.5 s, 138.0 s
