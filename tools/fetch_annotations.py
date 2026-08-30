@@ -2,7 +2,7 @@
 Regenerate the ground-truth annotation file from PhysioNet.
 
 The repository already ships `data/annotations_record208_excerpt.csv`, so you do NOT
-need to run this — it exists to document exactly how that file was produced, and to let
+need to run this. It exists to document exactly how that file was produced, and to let
 anyone reproduce it from the original source.
 
 What it does:

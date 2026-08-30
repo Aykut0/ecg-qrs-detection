@@ -4,14 +4,14 @@ Three files, all derived from **MIT-BIH Arrhythmia Database record 208**.
 
 | file | what it is |
 |---|---|
-| `ecg_mitbih_record208.csv` | the ECG signal — 108 000 samples at 360 Hz (5 minutes) |
+| `ecg_mitbih_record208.csv` | the ECG signal, 108 000 samples at 360 Hz (5 minutes) |
 | `annotations_record208_excerpt.csv` | 509 reference beat positions and their labels |
 | `quality_markers_record208_excerpt.csv` | 14 annotator signal-quality markers |
 
 ## The excerpt
 
-The signal is samples **422820–530820** of record 208, channel MLII — the 5-minute excerpt
-distributed with SciPy as `scipy.datasets.electrocardiogram`.
+The signal is samples **422820–530820** of record 208, channel MLII. That's the 5-minute
+excerpt distributed with SciPy as `scipy.datasets.electrocardiogram`.
 
 That offset is verified, not assumed. `tools/fetch_annotations.py` searches the full 30-minute
 record for the excerpt by minimising absolute sample difference, and finds it at 422820 with
@@ -38,8 +38,8 @@ analysis:
 | `~` | change in signal quality |
 | `\|` | isolated QRS-like artifact |
 
-Rhythm-change markers (`+`) and comments are discarded — they are not detectable events and
-counting them either way would distort the score.
+Rhythm-change markers (`+`) and comments are discarded, since they are not detectable events
+and counting them either way would distort the score.
 
 ## Citation
 

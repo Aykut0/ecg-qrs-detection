@@ -1,43 +1,38 @@
 """
-QRS detection on a real ECG — Pan & Tompkins (1985), built and measured
-=======================================================================
-Implements the Pan-Tompkins QRS detector from scratch and scores it against the
-reference beat annotations made by cardiologists, using the standard evaluation
-protocol (ANSI/AAMI EC57: a detection counts as correct if it falls within 150 ms
-of an annotated beat).
+Pan-Tompkins QRS detection, implemented from scratch and scored against real
+cardiologist annotations rather than just plotted and eyeballed. A detection counts
+as correct if it falls within 150 ms of an annotated beat, which is the standard
+ANSI/AAMI EC57 tolerance.
 
-Data
-----
-A 5-minute excerpt of **MIT-BIH record 208**, sampled at 360 Hz — samples
-422820..530820 of the full record, the excerpt distributed with SciPy as
-`scipy.datasets.electrocardiogram`. Record 208 is one of the harder records in the
-database: of the 509 beats in this excerpt, 93 are premature ventricular
-contractions and 56 are fusion beats, so 29 % of the beats are abnormal. It also
-carries real baseline wander and stretches flagged by the annotators as noisy.
+The data is a 5-minute excerpt of MIT-BIH record 208 at 360 Hz, samples
+422820..530820 of the full record (the same excerpt SciPy ships as
+scipy.datasets.electrocardiogram). Record 208 is a genuinely hard case: of its 509
+beats, 93 are premature ventricular contractions and 56 are fusion beats, so 29% of
+the beats are abnormal, and it carries real baseline wander plus stretches the
+annotators themselves flagged as noisy.
 
-Two thresholding strategies
----------------------------
 The filter chain (band-pass, derivative, squaring, moving-window integration) is
-common to both. What differs is how a peak in the integrated signal is judged:
+the same for both detectors below. What differs is how a peak in the integrated
+signal gets judged a heartbeat or not.
 
-  `static`    a single threshold computed once from the whole record. Simple, and
-              what most from-scratch implementations actually do.
+detect_static picks one threshold for the whole record. That's simple, and it's
+what most from-scratch implementations actually do.
 
-  `adaptive`  what the paper actually specifies, and the reason the algorithm works:
-              running signal and noise peak estimates (SPKI / NPKI) that update on
-              every peak, a threshold derived from them, RR-interval limits with
-              search-back to recover beats missed during a dropout, and T-wave
-              discrimination by slope comparison.
+detect_adaptive is what the paper actually specifies, and the reason the algorithm
+works as well as it does: running signal and noise peak estimates (SPKI and NPKI)
+that update on every peak, a threshold derived from them, RR-interval limits with
+search-back to recover a beat missed during a dropout, and T-wave rejection by
+comparing slope against the previous beat.
 
-Both are implemented and both are scored, because the difference between them is
-the interesting result — see the table this script prints.
+Both are implemented and both are scored, because the gap between them is the
+interesting result and it's printed in the table this script writes to
+metrics.txt.
 
-Run
----
+Run with:
     python ecg_qrs_pan_tompkins.py
 
-Everything runs offline from the two files in `data/`. Writes three figures into
-`figures/`, plus `metrics.txt`.
+Everything runs offline from the files already in data/. Writes three figures into
+figures/, plus metrics.txt.
 
 Author: Yasar Aykut Altuntop
 """
@@ -310,12 +305,12 @@ def figure_validation(t, ecg, results, reference, quality):
 
     ax_fp = fig.add_subplot(gs[0, 0])
     _error_panel(ax_fp, t, ecg, adaptive, reference, quality, (17.5, 22.5),
-                 "False positive at 19.9 s — on an artifact the annotators marked '|'")
+                 "False positive at 19.9 s, on an artifact the annotators marked '|'")
     ax_fp.set_ylabel("ECG [mV]")
 
     ax_fn = fig.add_subplot(gs[0, 1])
     _error_panel(ax_fn, t, ecg, adaptive, reference, quality, (207.5, 215.5),
-                 "Eight missed beats, 209-214 s — inside a stretch marked noisy")
+                 "Eight missed beats, 209-214 s, inside a stretch marked noisy")
 
     handles = [
         plt.Line2D([], [], ls="none", marker="o", mfc="none", mec="#059669", ms=10, mew=1.4,
