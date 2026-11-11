@@ -8,7 +8,7 @@ Three files, all derived from **MIT-BIH Arrhythmia Database record 208**.
 | `annotations_record208_excerpt.csv` | 509 reference beat positions and their labels |
 | `quality_markers_record208_excerpt.csv` | 14 annotator signal-quality markers |
 
-## The excerpt
+## Excerpt
 
 The signal is samples **422820–530820** of record 208, channel MLII. That's the 5-minute
 excerpt distributed with SciPy as `scipy.datasets.electrocardiogram`.
