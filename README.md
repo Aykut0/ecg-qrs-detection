@@ -1,5 +1,9 @@
 # QRS Detection on a Real ECG (Pan-Tompkins)
 
+> **A training project.** A from-scratch heartbeat detector, checked against the beat labels cardiologists made on the same recording.
+
+![Detected R-peaks and beat-to-beat heart rate](figures/ecg_rpeaks.png)
+
 This is a from-scratch implementation of the Pan-Tompkins QRS detector, the classic 1985
 algorithm for finding heartbeats in an ECG. It's a learning exercise, not original
 research. The algorithm is well known and plenty of people have implemented it before. What
@@ -101,6 +105,8 @@ pip install wfdb
 python tools/fetch_annotations.py
 ```
 
+![The Pan-Tompkins stages on the real ECG](figures/ecg_pipeline.png)
+
 ## Why I built this
 
 QRS detection sits in front of almost every ECG application: arrhythmia classification,
@@ -120,3 +126,8 @@ Code is MIT, see `LICENSE`. The MIT-BIH data carries its own citation requiremen
 
 Pan, J. and Tompkins, W.J. "A Real-Time QRS Detection Algorithm." IEEE Transactions on
 Biomedical Engineering, BME-32(3), 230-236, 1985.
+
+---
+
+**Author:** Yaşar Aykut Altuntop · MSc student, Biomedical Sciences and Engineering, Koç University  
+[LinkedIn](https://linkedin.com/in/aykutaltuntop) · [GitHub](https://github.com/Aykut0)
